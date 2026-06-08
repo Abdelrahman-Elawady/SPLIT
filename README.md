@@ -105,10 +105,7 @@ Because onboard cameras would shift the center of mass, we offloaded vision proc
 SPLIT-Robotics-Swarm/
 ├── Firmware/                                  # Embedded C++ code for the ESP32s
 │   ├── bridge-controller/                     # Standard Arduino bridge code
-│   ├── bridge-controller-spiffs-web-dashboard/# PlatformIO bridge environment
 │   │   ├── data/                              # SPIFFS Web Files (HTML/CSS/JS)
-│   │   ├── src/                               # Main bridge source code (don't use this one)
-│   │   └── platformio.ini                     # PlatformIO configuration
 │   ├── cortex-controller/                     # Robot 1: ESP-NOW relay & Servo
 │   ├── cortex-controller-B/                   # Robot 2: ESP-NOW relay & Servo
 │   ├── drive-controller/                      # Robot 1: 200Hz PID & Kalman math
