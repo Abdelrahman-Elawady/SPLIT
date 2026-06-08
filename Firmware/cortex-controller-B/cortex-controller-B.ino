@@ -8,8 +8,7 @@ const int SERVO_PIN = 4;
 Servo gripper;
 
 // ================= COMMUNICATIONS HUB =================
-// 28:05:A5:2E:0F:05
-uint8_t bridgeAddress[] = {0x28, 0x05, 0xA5, 0x2E, 0x0F, 0x05}; // MAC address of the bridge MCU's ESP-NOW interface, which we will send telemetry data to and receive commands from. then we forward these commands to the Drive MCU over Serial2, and send telemetry data back to the bridge MCU over ESP-NOW.
+uint8_t bridgeAddress[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; // MAC address of the bridge MCU's ESP-NOW interface, which we will send telemetry data to and receive commands from. then we forward these commands to the Drive MCU over Serial2, and send telemetry data back to the bridge MCU over ESP-NOW.
 esp_now_peer_info_t peerInfo; 
 
 typedef struct

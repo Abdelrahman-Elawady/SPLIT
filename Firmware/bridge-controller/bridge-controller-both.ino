@@ -6,7 +6,7 @@
 #include <SPIFFS.h> 
 
 const char *ssid = "Robot_AP"; 
-const char *password = "12345678"; 
+const char *password = "xxxxxxxx"; //password for wifi access point - anything you want
 const float DEFAULT_TURN_SPEED = 35.0; //adjust this to change how fast the robot turns
 
 WebServer server(80); 
@@ -14,8 +14,8 @@ WebSocketsServer webSocket = WebSocketsServer(81);
 
 // ================= DUAL ROBOT MAC ADDRESSES =================
 //use the mac address testing code to find the mac address of your specific MCU printed at the loop
-uint8_t mac_robot1[] = {0x04, 0xB2, 0x47, 0x9C, 0x7E, 0x10}; //04:B2:47:9C:7E:10
-uint8_t mac_robot2[] = {0x28, 0x05, 0xA5, 0x2C, 0xF0, 0x80}; //28:05:A5:2C:F0:80
+uint8_t mac_robot1[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; //your own esp32 MAC address
+uint8_t mac_robot2[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; //your own esp32 MAC address - of you have another robot :)
 esp_now_peer_info_t peerInfo;
 
 typedef struct {

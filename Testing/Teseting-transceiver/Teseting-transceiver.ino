@@ -2,8 +2,8 @@
 #include <WiFi.h>
 
 // REPLACE THIS with your Robot's MAC Address
-// Example: If MAC is 04:B2:47:9C:7E:10, write it like below:
-uint8_t broadcastAddress[] = {0x04, 0xB2, 0x47, 0x9C, 0x7E, 0x10};
+// Example: If MAC is 00:00:00:00:00:00, write it like below:
+uint8_t broadcastAddress[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 // The data structure we will send (a 32-character string)
 typedef struct struct_message {
