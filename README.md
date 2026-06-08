@@ -104,7 +104,7 @@ Because onboard cameras would shift the center of mass, we offloaded vision proc
 ```text
 SPLIT-Robotics-Swarm/
 ├── Firmware/                                  # Embedded C++ code for the ESP32s
-│   ├── bridge-controller/                     # Standard Arduino bridge code
+│   ├── bridge-controller/                     # esp32 bridge code wifi and esp32 now
 │   │   ├── data/                              # SPIFFS Web Files (HTML/CSS/JS)
 │   ├── cortex-controller/                     # Robot 1: ESP-NOW relay & Servo
 │   ├── cortex-controller-B/                   # Robot 2: ESP-NOW relay & Servo
