@@ -1,0 +1,99 @@
+body {
+  font-family: Arial;
+  margin: 0;
+  padding: 10px;
+  display: flex;
+  background: #f4f4f4;
+}
+.panel {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+}
+.left-panel {
+  width: 400px;
+} /* Widened to fit the extra buttons */
+.right-panel {
+  flex-grow: 1;
+}
+h3 {
+  margin-top: 0;
+  color: #333;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 5px;
+}
+.slider-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  align-items: center;
+  gap: 5px;
+}
+input[type="range"] {
+  flex-grow: 1;
+}
+.val-display {
+  font-weight: bold;
+  width: 35px;
+  text-align: right;
+}
+button {
+  padding: 6px 10px;
+  cursor: pointer;
+  border: none;
+  background: #007bff;
+  color: white;
+  border-radius: 4px;
+  font-size: 12px;
+}
+button:hover {
+  background: #0056b3;
+}
+.btn-send {
+  background: #17a2b8;
+}
+.btn-send:hover {
+  background: #117a8b;
+}
+.btn-save {
+  background: #28a745;
+}
+.btn-save:hover {
+  background: #1e7e34;
+}
+#joystick-zone {
+  width: 200px;
+  height: 200px;
+  background: #eee;
+  border-radius: 50%;
+  position: relative;
+  margin: 20px auto;
+  touch-action: none;
+  border: 2px solid #ccc;
+}
+#joystick-stick {
+  width: 60px;
+  height: 60px;
+  background: #ff4757;
+  border-radius: 50%;
+  position: absolute;
+  top: 70px;
+  left: 70px;
+  cursor: grab;
+}
+canvas {
+  width: 100%;
+  height: 400px;
+  background: #fff;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+} /* Much larger graphs */
+.chk-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  font-size: 14px;
+}

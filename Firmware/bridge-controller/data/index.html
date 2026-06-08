@@ -1,0 +1,399 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Robot Telemetry Web App</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="panel left-panel">
+      <div
+        style="
+          background: #e9ecef;
+          padding: 10px;
+          border-radius: 8px;
+          margin-bottom: 20px;
+          text-align: center;
+        "
+      >
+        <h3 style="margin-top: 0">Active Robot</h3>
+        <label style="margin-right: 15px; font-weight: bold; font-size: 18px">
+          <input
+            type="radio"
+            name="robotSel"
+            value="1"
+            checked
+            onchange="switchRobot(1)"
+          />
+          Robot 1
+        </label>
+        <label style="font-weight: bold; font-size: 18px">
+          <input
+            type="radio"
+            name="robotSel"
+            value="2"
+            onchange="switchRobot(2)"
+          />
+          Robot 2
+        </label>
+      </div>
+      <h3>PID Tuning & EEPROM</h3>
+
+      <div class="slider-row">
+        <span>Kp (Ang)</span>
+        <input
+          type="range"
+          id="P"
+          min="0"
+          max="800"
+          value="200"
+          oninput="document.getElementById('P_v').innerText = this.value"
+        />
+        <span id="P_v" class="val-display">200</span>
+        <button
+          onclick="sendCmd('P', document.getElementById('P').value)"
+          class="btn-send"
+        >
+          Send
+        </button>
+        <button
+          onclick="sendCmd('EP', document.getElementById('P').value)"
+          class="btn-save"
+        >
+          Save
+        </button>
+      </div>
+
+      <div class="slider-row">
+        <span>Kd (Ang)</span>
+        <input
+          type="range"
+          id="D"
+          min="0"
+          max="20"
+          step="0.1"
+          value="4"
+          oninput="document.getElementById('D_v').innerText = this.value"
+        />
+        <span id="D_v" class="val-display">4.0</span>
+        <button
+          onclick="sendCmd('D', document.getElementById('D').value)"
+          class="btn-send"
+        >
+          Send
+        </button>
+        <button
+          onclick="sendCmd('ED', document.getElementById('D').value)"
+          class="btn-save"
+        >
+          Save
+        </button>
+      </div>
+
+      <div class="slider-row">
+        <span>Kp (Spd)</span>
+        <input
+          type="range"
+          id="V"
+          min="0"
+          max="2"
+          step="0.005"
+          value="0.2"
+          oninput="
+            document.getElementById('V_v').innerText = parseFloat(
+              this.value,
+            ).toFixed(3)
+          "
+        />
+        <span id="V_v" class="val-display">0.200</span>
+        <button
+          onclick="sendCmd('V', document.getElementById('V').value)"
+          class="btn-send"
+        >
+          Send
+        </button>
+        <button
+          onclick="sendCmd('EV', document.getElementById('V').value)"
+          class="btn-save"
+        >
+          Save
+        </button>
+      </div>
+
+      <div class="slider-row">
+        <span>Ki (Spd)</span>
+        <input
+          type="range"
+          id="U"
+          min="0"
+          max="0.1"
+          step="0.001"
+          value="0.01"
+          oninput="
+            document.getElementById('U_v').innerText = parseFloat(
+              this.value,
+            ).toFixed(3)
+          "
+        />
+        <span id="U_v" class="val-display">0.010</span>
+        <button
+          onclick="sendCmd('U', document.getElementById('U').value)"
+          class="btn-send"
+        >
+          Send
+        </button>
+        <button
+          onclick="sendCmd('EU', document.getElementById('U').value)"
+          class="btn-save"
+        >
+          Save
+        </button>
+      </div>
+
+      <div class="slider-row">
+        <span>Kp (Yaw)</span>
+        <input
+          type="range"
+          id="Y"
+          min="0"
+          max="5"
+          step="0.1"
+          value="2.4"
+          oninput="document.getElementById('Y_v').innerText = this.value"
+        />
+        <span id="Y_v" class="val-display">2.4</span>
+        <button
+          onclick="sendCmd('Y', document.getElementById('Y').value)"
+          class="btn-send"
+        >
+          Send
+        </button>
+        <button
+          onclick="sendCmd('EY', document.getElementById('Y').value)"
+          class="btn-save"
+        >
+          Save
+        </button>
+      </div>
+
+      <div class="slider-row">
+        <span>Trim (Ang)</span>
+        <input
+          type="range"
+          id="O"
+          min="-10"
+          max="10"
+          step="0.1"
+          value="0"
+          oninput="document.getElementById('O_v').innerText = this.value"
+        />
+        <span id="O_v" class="val-display">0.0</span>
+        <button
+          onclick="sendCmd('O', document.getElementById('O').value)"
+          class="btn-send"
+        >
+          Send
+        </button>
+        <button
+          onclick="sendCmd('EO', document.getElementById('O').value)"
+          class="btn-save"
+        >
+          Save
+        </button>
+      </div>
+
+      <h3>Gripper Control</h3>
+      <div
+        style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px"
+      >
+        <button
+          class="btn-send"
+          style="padding: 10px; flex: 1"
+          onclick="moveServo(0)"
+        >
+          0°
+        </button>
+        <button
+          class="btn-send"
+          style="padding: 10px; flex: 1"
+          onclick="moveServo(90)"
+        >
+          90°
+        </button>
+        <button
+          class="btn-send"
+          style="padding: 10px; flex: 1"
+          onclick="moveServo(120)"
+        >
+          120°
+        </button>
+        <button
+          class="btn-send"
+          style="padding: 10px; flex: 1"
+          onclick="moveServo(150)"
+        >
+          150°
+        </button>
+        <button
+          class="btn-send"
+          style="padding: 10px; flex: 1"
+          onclick="moveServo(170)"
+        >
+          170°
+        </button>
+        <button
+          class="btn-send"
+          style="padding: 10px; flex: 1"
+          onclick="moveServo(180)"
+        >
+          180°
+        </button>
+      </div>
+
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 20px;
+        "
+      >
+        <h3 style="margin: 0">Navigation</h3>
+        <div style="font-size: 14px; font-weight: bold">
+          Max Speed:
+          <input
+            type="range"
+            id="joySpeed"
+            min="2"
+            max="20"
+            value="8"
+            style="width: 80px; margin-left: 5px"
+            oninput="
+              document.getElementById('joySpeed_v').innerText = this.value
+            "
+          />
+          <span id="joySpeed_v" style="color: #007bff">8</span>
+        </div>
+      </div>
+
+      <div id="joystick-zone"><div id="joystick-stick"></div></div>
+
+      <h3 style="margin-top: 20px">Manual Override</h3>
+      <style>
+        .dpad-btn {
+          height: 60px;
+          font-weight: bold;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          /* These commands stop mobile text selection and ghost clicks */
+          user-select: none;
+          -webkit-user-select: none;
+          touch-action: none;
+          -webkit-tap-highlight-color: transparent;
+        }
+        .dpad-btn:active {
+          opacity: 0.7; /* Gives a nice visual press effect */
+        }
+      </style>
+      <div
+        style="
+          display: grid;
+          grid-template-columns: 60px 60px 60px;
+          gap: 10px;
+          justify-content: center;
+          margin-bottom: 20px;
+        "
+      >
+        <div></div>
+        <button
+          class="dpad-btn"
+          style="background: #007bff"
+          onmousedown="startBtnDrive(-1, 0)"
+          onmouseup="stopBtnDrive()"
+          ontouchstart="event.preventDefault(); startBtnDrive(-1, 0)"
+          ontouchend="event.preventDefault(); stopBtnDrive()"
+        >
+          FWD
+        </button>
+        <div></div>
+
+        <button
+          class="dpad-btn"
+          style="background: #6c757d"
+          onmousedown="startBtnDrive(0, 1)"
+          onmouseup="stopBtnDrive()"
+          ontouchstart="event.preventDefault(); startBtnDrive(0, 1)"
+          ontouchend="event.preventDefault(); stopBtnDrive()"
+        >
+          LFT
+        </button>
+        <button
+          class="dpad-btn"
+          style="background: #007bff"
+          onmousedown="startBtnDrive(1, 0)"
+          onmouseup="stopBtnDrive()"
+          ontouchstart="event.preventDefault(); startBtnDrive(1, 0)"
+          ontouchend="event.preventDefault(); stopBtnDrive()"
+        >
+          REV
+        </button>
+        <button
+          class="dpad-btn"
+          style="background: #6c757d"
+          onmousedown="startBtnDrive(0, -1)"
+          onmouseup="stopBtnDrive()"
+          ontouchstart="event.preventDefault(); startBtnDrive(0, -1)"
+          ontouchend="event.preventDefault(); stopBtnDrive()"
+        >
+          RGT
+        </button>
+      </div>
+
+      <h3>Battery: <span id="bat-read" style="color: green">-- V</span></h3>
+    </div>
+
+    <div class="panel right-panel">
+      <h3>Telemetry & Diagnostics</h3>
+      <div class="slider-row" style="justify-content: flex-start; gap: 20px">
+        <button id="recBtn" onclick="toggleRec()" style="background: #dc3545">
+          Start Recording
+        </button>
+        <button onclick="exportCSV()" style="background: #28a745">
+          Export CSV
+        </button>
+        <span
+          >Sample Rate:
+          <select id="sRate" onchange="updateRate()">
+            <option value="1">20 Hz</option>
+            <option value="2">10 Hz</option>
+            <option value="4">5 Hz</option>
+          </select>
+        </span>
+      </div>
+
+      <div class="chk-group">
+        <label><input type="checkbox" id="cAng" checked /> Angle (Red)</label>
+        <label
+          ><input type="checkbox" id="cTarg" checked /> Target (Blue)</label
+        >
+        <label><input type="checkbox" id="cErr" /> Error (Purple)</label>
+      </div>
+      <canvas id="graphTop"></canvas>
+
+      <div class="chk-group">
+        <label><input type="checkbox" id="cP" /> P-Term (Red)</label>
+        <label><input type="checkbox" id="cI" /> I-Term (Green)</label>
+        <label><input type="checkbox" id="cD" /> D-Term (Blue)</label>
+        <label><input type="checkbox" id="cSpd" /> Spd In (Orange)</label>
+        <label
+          ><input type="checkbox" id="cMotL" checked /> Mot L (Black)</label
+        >
+        <label><input type="checkbox" id="cMotR" checked /> Mot R (Gray)</label>
+      </div>
+      <canvas id="graphBot"></canvas>
+    </div>
+
+    <script src="/script.js"></script>
+  </body>
+</html>
