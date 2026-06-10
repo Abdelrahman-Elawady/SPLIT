@@ -78,7 +78,7 @@ The system relies on three simultaneous control loops working in harmony:
 
 Tuning a cascaded PID controller requires extreme patience. To solve this, we built a comprehensive telemetry dashboard hosted entirely on the Bridge MCU's SPIFFS memory.
 
-![Software Data Flow](Docs/software%20data%20flow.jpg)
+![Software Data Flow](Docs/software%20data%20flow.png)
 
 *Click the image below to watch the live Telemetry Dashboard and auto-scaling graphs in action:*
 
